@@ -1,12 +1,12 @@
-package br.com.zup.casadocodigo.controller.dto;
+package br.com.zup.casadocodigo.controller.response;
 
 import br.com.zup.casadocodigo.model.State;
 
-public class StateDto {
+public class StateResponse {
     private Long id;
     private String name;
 
-    public StateDto(State state) {
+    public StateResponse(State state) {
         this.id = state.getId();
         this.name = state.getName();
     }

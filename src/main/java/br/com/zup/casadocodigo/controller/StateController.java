@@ -1,6 +1,6 @@
 package br.com.zup.casadocodigo.controller;
 
-import br.com.zup.casadocodigo.controller.dto.StateDto;
+import br.com.zup.casadocodigo.controller.response.StateResponse;
 import br.com.zup.casadocodigo.controller.request.NewStateRequest;
 import br.com.zup.casadocodigo.repository.CountryRepository;
 import br.com.zup.casadocodigo.repository.StateRepository;
@@ -28,14 +28,14 @@ public class StateController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<StateDto> save(@RequestBody @Valid NewStateRequest req, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<StateResponse> save(@RequestBody @Valid NewStateRequest req, UriComponentsBuilder uriBuilder) {
         var state = stateRepository.save(req.toModel(countryRepository));
         URI uri = uriBuilder.path("/states/{id}").buildAndExpand(state.getId()).toUri();
-        return ResponseEntity.created(uri).body(new StateDto(state));
+        return ResponseEntity.created(uri).body(new StateResponse(state));
     }
 
     @GetMapping
-    public Page<StateDto> list(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pagination) {
-        return stateRepository.findAll(pagination).map(StateDto::new);
+    public Page<StateResponse> list(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pagination) {
+        return stateRepository.findAll(pagination).map(StateResponse::new);
     }
 }

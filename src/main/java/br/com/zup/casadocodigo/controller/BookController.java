@@ -1,7 +1,7 @@
 package br.com.zup.casadocodigo.controller;
 
-import br.com.zup.casadocodigo.controller.dto.BookDetailDto;
-import br.com.zup.casadocodigo.controller.dto.BookDto;
+import br.com.zup.casadocodigo.controller.response.BookDetailResponse;
+import br.com.zup.casadocodigo.controller.response.BookResponse;
 import br.com.zup.casadocodigo.controller.request.NewBookRequest;
 import br.com.zup.casadocodigo.exception.NotFoundException;
 import br.com.zup.casadocodigo.repository.AuthorRepository;
@@ -35,21 +35,21 @@ public class BookController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<BookDetailDto> save(@RequestBody @Valid NewBookRequest req, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<BookDetailResponse> save(@RequestBody @Valid NewBookRequest req, UriComponentsBuilder uriBuilder) {
         var book = bookRepository.save(req.toModel(authorRepository, categoryRepository));
         URI uri = uriBuilder.path("/books/{id}").buildAndExpand(book.getId()).toUri();
-        return ResponseEntity.created(uri).body(new BookDetailDto(book));
+        return ResponseEntity.created(uri).body(new BookDetailResponse(book));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BookDto> find(@PathVariable Long id) {
+    public ResponseEntity<BookResponse> find(@PathVariable Long id) {
         var book = bookRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
-        return ResponseEntity.ok(new BookDto(book));
+        return ResponseEntity.ok(new BookResponse(book));
     }
 
     @GetMapping
-    public Page<BookDto> list(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pagination) {
-        return bookRepository.findAll(pagination).map(BookDto::new);
+    public Page<BookResponse> list(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pagination) {
+        return bookRepository.findAll(pagination).map(BookResponse::new);
     }
 
 }

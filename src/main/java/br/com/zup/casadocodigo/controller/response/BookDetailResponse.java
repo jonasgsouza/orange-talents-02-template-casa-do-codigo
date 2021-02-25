@@ -1,11 +1,11 @@
-package br.com.zup.casadocodigo.controller.dto;
+package br.com.zup.casadocodigo.controller.response;
 
 import br.com.zup.casadocodigo.model.Book;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class BookDetailDto {
+public class BookDetailResponse {
 
     private Long id;
 
@@ -23,11 +23,11 @@ public class BookDetailDto {
 
     private LocalDate publishDate;
 
-    private AuthorDto author;
+    private AuthorResponse author;
 
-    private CategoryDto category;
+    private CategoryResponse category;
 
-    public BookDetailDto(Book book) {
+    public BookDetailResponse(Book book) {
         id = book.getId();
         title = book.getTitle();
         resume = book.getResume();
@@ -36,8 +36,8 @@ public class BookDetailDto {
         pageCount = book.getPageCount();
         isbn = book.getIsbn();
         publishDate = book.getPublishDate();
-        author = new AuthorDto(book.getAutor());
-        category = new CategoryDto(book.getCategoria());
+        author = new AuthorResponse(book.getAutor());
+        category = new CategoryResponse(book.getCategoria());
     }
 
     public Long getId() {
@@ -72,11 +72,11 @@ public class BookDetailDto {
         return publishDate;
     }
 
-    public AuthorDto getAuthor() {
+    public AuthorResponse getAuthor() {
         return author;
     }
 
-    public CategoryDto getCategory() {
+    public CategoryResponse getCategory() {
         return category;
     }
 

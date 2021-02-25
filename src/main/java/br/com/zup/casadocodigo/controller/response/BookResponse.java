@@ -1,13 +1,13 @@
-package br.com.zup.casadocodigo.controller.dto;
+package br.com.zup.casadocodigo.controller.response;
 
 import br.com.zup.casadocodigo.model.Book;
 
-public class BookDto {
+public class BookResponse {
     private Long id;
 
     private String title;
 
-    public BookDto(Book book) {
+    public BookResponse(Book book) {
         this.id = book.getId();
         this.title = book.getTitle();
     }

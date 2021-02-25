@@ -1,13 +1,13 @@
-package br.com.zup.casadocodigo.controller.dto;
+package br.com.zup.casadocodigo.controller.response;
 
 import br.com.zup.casadocodigo.model.Country;
 
-public class CountryDto {
+public class CountryResponse {
     private Integer id;
 
     private String name;
 
-    public CountryDto(Country country) {
+    public CountryResponse(Country country) {
         this.id = country.getId();
         this.name = country.getName();
     }

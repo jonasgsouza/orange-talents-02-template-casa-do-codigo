@@ -1,13 +1,13 @@
-package br.com.zup.casadocodigo.controller.dto;
+package br.com.zup.casadocodigo.controller.response;
 
 import br.com.zup.casadocodigo.model.Category;
 
-public class CategoryDto {
+public class CategoryResponse {
     private Long id;
 
     private String name;
 
-    public CategoryDto(Category category) {
+    public CategoryResponse(Category category) {
         this.id = category.getId();
         this.name = category.getName();
     }

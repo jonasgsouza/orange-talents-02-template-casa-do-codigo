@@ -1,6 +1,6 @@
 package br.com.zup.casadocodigo.controller;
 
-import br.com.zup.casadocodigo.controller.dto.CustomerDto;
+import br.com.zup.casadocodigo.controller.response.CustomerResponse;
 import br.com.zup.casadocodigo.controller.request.NewCustomerRequest;
 import br.com.zup.casadocodigo.repository.CountryRepository;
 import br.com.zup.casadocodigo.repository.CustomerRepository;
@@ -33,15 +33,15 @@ public class CustomerController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<CustomerDto> save(@RequestBody @Valid NewCustomerRequest req, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<CustomerResponse> save(@RequestBody @Valid NewCustomerRequest req, UriComponentsBuilder uriBuilder) {
         var customer = customerRepository.save(req.toModel(countryRepository, stateRepository));
         URI uri = uriBuilder.path("/customers/{id}").buildAndExpand(customer.getId()).toUri();
-        return ResponseEntity.created(uri).body(new CustomerDto(customer));
+        return ResponseEntity.created(uri).body(new CustomerResponse(customer));
     }
 
     @GetMapping
-    public Page<CustomerDto> list(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pagination) {
-        return customerRepository.findAll(pagination).map(CustomerDto::new);
+    public Page<CustomerResponse> list(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pagination) {
+        return customerRepository.findAll(pagination).map(CustomerResponse::new);
     }
 
 }

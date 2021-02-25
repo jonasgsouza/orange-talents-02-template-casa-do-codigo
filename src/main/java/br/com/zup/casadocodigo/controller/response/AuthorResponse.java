@@ -1,10 +1,10 @@
-package br.com.zup.casadocodigo.controller.dto;
+package br.com.zup.casadocodigo.controller.response;
 
 import br.com.zup.casadocodigo.model.Author;
 
 import java.time.LocalDate;
 
-public class AuthorDto {
+public class AuthorResponse {
     private Long id;
 
     private String name;
@@ -15,7 +15,7 @@ public class AuthorDto {
 
     private LocalDate createdAt;
 
-    public AuthorDto(Author author) {
+    public AuthorResponse(Author author) {
         this.id = author.getId();
         this.name = author.getName();
         this.email = author.getEmail();

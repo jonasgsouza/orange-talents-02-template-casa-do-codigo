@@ -1,6 +1,6 @@
 package br.com.zup.casadocodigo.controller;
 
-import br.com.zup.casadocodigo.controller.dto.CountryDto;
+import br.com.zup.casadocodigo.controller.response.CountryResponse;
 import br.com.zup.casadocodigo.controller.request.NewCountryRequest;
 import br.com.zup.casadocodigo.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +25,15 @@ public class CountryController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<CountryDto> save(@RequestBody @Valid NewCountryRequest req, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<CountryResponse> save(@RequestBody @Valid NewCountryRequest req, UriComponentsBuilder uriBuilder) {
         var country = countryRepository.save(req.toModel());
         URI uri = uriBuilder.path("/countries/{id}").buildAndExpand(country.getId()).toUri();
-        return ResponseEntity.created(uri).body(new CountryDto(country));
+        return ResponseEntity.created(uri).body(new CountryResponse(country));
     }
 
     @GetMapping
-    public Page<CountryDto> list(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pagination) {
-        return countryRepository.findAll(pagination).map(CountryDto::new);
+    public Page<CountryResponse> list(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pagination) {
+        return countryRepository.findAll(pagination).map(CountryResponse::new);
     }
 
 }

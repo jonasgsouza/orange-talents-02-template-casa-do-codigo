@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import br.com.zup.casadocodigo.controller.dto.CategoryDto;
+import br.com.zup.casadocodigo.controller.response.CategoryResponse;
 import br.com.zup.casadocodigo.controller.request.NewCategoryRequest;
 import br.com.zup.casadocodigo.exception.NotFoundException;
 import br.com.zup.casadocodigo.repository.CategoryRepository;
@@ -22,15 +22,15 @@ public class CategoryController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<CategoryDto> save(@RequestBody @Valid NewCategoryRequest req, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<CategoryResponse> save(@RequestBody @Valid NewCategoryRequest req, UriComponentsBuilder uriBuilder) {
         var category = categoryRepository.save(req.toModel());
         URI uri = uriBuilder.path("/categories/{id}").buildAndExpand(category.getId()).toUri();
-        return ResponseEntity.created(uri).body(new CategoryDto(category));
+        return ResponseEntity.created(uri).body(new CategoryResponse(category));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryDto> find(@PathVariable Long id) {
+    public ResponseEntity<CategoryResponse> find(@PathVariable Long id) {
         var category = categoryRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
-        return ResponseEntity.ok(new CategoryDto(category));
+        return ResponseEntity.ok(new CategoryResponse(category));
     }
 }

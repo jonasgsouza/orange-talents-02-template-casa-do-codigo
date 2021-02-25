@@ -1,8 +1,8 @@
-package br.com.zup.casadocodigo.controller.dto;
+package br.com.zup.casadocodigo.controller.response;
 
 import br.com.zup.casadocodigo.model.Customer;
 
-public class CustomerDto {
+public class CustomerResponse {
 
     private Long id;
 
@@ -10,7 +10,7 @@ public class CustomerDto {
 
     private String name;
 
-    public CustomerDto(Customer customer) {
+    public CustomerResponse(Customer customer) {
         id = customer.getId();
         email = customer.getEmail();
         name = customer.getName();
